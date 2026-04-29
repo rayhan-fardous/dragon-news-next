@@ -1,11 +1,11 @@
-import { getCategories, getNewsByCategoryId } from '@/app/lib/data';
-import LeftSidebar from '@/components/homepage/news/LeftSidebar';
-import RightSidebar from '@/components/homepage/news/RightSidebar';
-import React from 'react';
+import { getCategories, getNewsByCategoryId } from "@/app/lib/data";
+import LeftSidebar from "@/components/homepage/news/LeftSidebar";
+import NewsCard from "@/components/homepage/news/NewsCard";
+import RightSidebar from "@/components/homepage/news/RightSidebar";
+import React from "react";
 
-
-const NewsCategoryPage = async ({params}) => {
-  const {id} = await params;
+const NewsCategoryPage = async ({ params }) => {
+  const { id } = await params;
   const categories = await getCategories();
   const news = await getNewsByCategoryId(id);
 
@@ -17,9 +17,15 @@ const NewsCategoryPage = async ({params}) => {
       <div className="col-span-6">
         <h2 className="font-bold text-lg">News by category</h2>
         <div className="space-y-4 mt-6">
-          {news.length > 0 ? news.map((n) => {
-            return <div key={n._id} className="p-6 rounded-md border">{n.title}</div>;
-          }) : <h2 className='font-bold text-3xl text-red-400 text-center my-7'>No News Found</h2> }
+          {news.length > 0 ? (
+            news.map((n) => {
+              return <NewsCard key={n._id} news={n}></NewsCard>;
+            })
+          ) : (
+            <h2 className="font-bold text-3xl text-red-400 text-center my-7">
+              No News Found
+            </h2>
+          )}
         </div>
       </div>
       <div className="col-span-3">
